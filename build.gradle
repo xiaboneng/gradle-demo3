@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+tasks.withType(JavaCompile){
+    options.encoding("utf-8")
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+apply from: "$rootDir/gradle/config/scripts/style.gradle"
+apply from: "$rootDir/gradle/config/scripts/coverage.gradle"
+coverage.excludePackages = [
+]
+coverage.excludeClasses = [
+]
+style.excludePackages = [
+]
+style.excludeClasses = [
+]
+
+repositories {
+    mavenLocal()
+    maven{url 'https://maven.aliyun.com/repository/public'}
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
